@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo  from '../../assets/img/logo.png'
+import useAuthHook from "../../hook/AuthHook";
 
 const Navbar = () => {
-//theeme
+/* user */
+const {user,logOut}=useAuthHook()
+
+  //theeme
 const [theme,setTheme]=useState('light')
 
 //when i clcli the toggle button  the buttion wi be render 
@@ -27,7 +31,14 @@ const handleToggle=(e)=>{
   }
 
 }
+/* logout */
 
+const logOuts=()=>{
+  logOut()
+}
+
+
+/* links */
   const links = (
     <div>
       <NavLink to="/addJob">
@@ -63,7 +74,9 @@ const handleToggle=(e)=>{
           </div>
         </div>
         <div className="flex-none">
+        <h3 className="text-red-600 text-bold">        {user?.email}</h3>
           <ul className="menu menu-horizontal px-1">
+  
             <NavLink to="/">
               <li>
                 <div>Home</div>
@@ -89,7 +102,7 @@ const handleToggle=(e)=>{
                 <img
                   referrerPolicy="no-referrer"
                   alt="User Profile Photo"
-                  src={logo}
+                  src={user?.photoURL}
                 />
               </div>
             </div>
@@ -99,7 +112,7 @@ const handleToggle=(e)=>{
             >
               {links}
               <li className="mt-2">
-                <button className="bg-gray-200 block text-center">
+                <button className="bg-gray-200 block text-center" onClick={logOuts}>
                   Logout
                 </button>
               </li>

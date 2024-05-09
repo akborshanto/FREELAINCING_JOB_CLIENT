@@ -5,10 +5,11 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import { app } from "../firebase.fonfig";
-import { GoogleAuthProvider } from "firebase/auth/cordova";
+import { GoogleAuthProvider } from "firebase/auth";
 
 export const AuthContext = createContext();
 const AuthProviders = ({ children }) => {
@@ -18,10 +19,9 @@ const AuthProviders = ({ children }) => {
   const [loading, setLoading] = useState(true);
   //get auth
   const auth = getAuth(app);
-
-//google provider
-const googleProvider =new GoogleAuthProvider()
-
+  /*  */
+  /* google */
+  const provider = new GoogleAuthProvider();
   //create a user
 
   const createUser = (email, password) => {
@@ -36,31 +36,33 @@ const googleProvider =new GoogleAuthProvider()
   };
 
   //google login
+  const googleLogin = () => {
+    setLoading(true);
+    return signInWithPopup(auth, provider);
+  };
 
-  const googleLogIn=()=>{
-    setLoading(true)
-    return signInWithPopup(auth,googleProvider)
-  }
+/* update name ana photo */
+const updatePro=(name,photo)=>{
 
-//onAuthStateChange
-
-useEffect(()=>{
-
-setLoading(true)
-
-const unSubscribe= onAuthStateChanged(auth,currentUser=>{
-setUser(currentUser)
-console.log('current USer',currentUser)
-setLoading(false)
-return ()=>{
-  unSubscribe()
+  return updateProfile(auth.currentUser,{
+    displayName:name,photoURL:photo
+  })
 }
 
-})
 
 
 
-},[])
+  //onAuthStateChange
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => {
+      return unsubscribe();
+    };
+  }, []);
+
 
 
   //logOut
@@ -69,16 +71,20 @@ return ()=>{
     return signOut(auth);
   };
 
-  //authoraization /consent value
+  /* update profile */
+
+  // horaization /consent value
 
   const authInfo = {
     user,
+    setUser,
     loading,
     setLoading,
     createUser,
     singInEmailAndPassWord,
-    googleLogIn,
+    googleLogin,
     logOut,
+    updatePro,
   };
 
   return (

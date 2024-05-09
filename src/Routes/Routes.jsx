@@ -7,7 +7,7 @@ import MyBids from './../pages/myBIds/MyBids';
 import BidRequest from "../pages/bidRequest/BidRequest";
 import Login from './../pages/login/Login';
 import Register from './../pages/register/Register';
-//import PrivateRoutes from "../privateRoutes/PrivateRoutes";
+import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import ErrorPage from './../pages/Error/ErrorPage';
 
 
@@ -39,21 +39,21 @@ element:<Login></Login>
 //add jobs
 {
     path:'/addJob',
-    element:<AddJob></AddJob>
+    element:<PrivateRoutes><AddJob></AddJob></PrivateRoutes>
 },
 //my posted job
 {
     path:'/myPostJob',
-    element:<MyPostedJobs></MyPostedJobs>
+    element:<PrivateRoutes><MyPostedJobs></MyPostedJobs></PrivateRoutes>
 },
 //my bids job
 {
     path:'/myBidsJob',
-    element:<MyBids></MyBids>
+    element:<PrivateRoutes><MyBids></MyBids></PrivateRoutes>
 },
 {
     path:'/bidRequest',
-    element:<BidRequest></BidRequest>
+    element:<PrivateRoutes><BidRequest></BidRequest></PrivateRoutes>
 }
 
 
