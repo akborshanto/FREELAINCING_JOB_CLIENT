@@ -12,7 +12,7 @@ useEffect(()=>{
 //axios data fetching
 const getData=async ()=>{
 try{
-  const data=await axios('data.json')
+  const data=await axios(`${import.meta.env.VITE_API_URL}/job`)
   setJob(data.data)
 }catch{
 
@@ -45,7 +45,7 @@ console.log(job)
 
      
 {
-job.filter( w=>w.job_title ==='WebDevelopment').map(web=>
+job.filter( w=>w.category ==='Web Development').map(web=>
 
   <div className='w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'>
   <div className='flex items-center justify-between'>
@@ -81,7 +81,7 @@ job.filter( w=>w.job_title ==='WebDevelopment').map(web=>
         <TabPanel  className='flex flex-col gap-4 md:flex-row my-8 justify-between lg:flex-row'>
 
 {
-job.filter(d=> d.job_title=== 'DigitalMarketin').map(gra=>
+job.filter(d=> d.category=== 'Digital Marketing').map(gra=>
 
   <div className='w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'>
   <div className='flex items-center justify-between'>
@@ -117,7 +117,7 @@ job.filter(d=> d.job_title=== 'DigitalMarketin').map(gra=>
         <TabPanel  className='flex flex-col gap-4 md:flex-row my-8 justify-between lg:flex-row'>
        
 {
-  job.filter(gra=>gra.job_title=== 'GrapicsDesign').map(gra=>
+  job.filter(gra=>gra.category=== 'Graphics Design').map(gra=>
     <div className='w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'>
     <div className='flex items-center justify-between'>
       <span className='text-xs font-light text-gray-800 '>

@@ -24,6 +24,7 @@ errorElement:<ErrorPage></ErrorPage>
 {//path:'/',
     index:true,
     element:<Home></Home>
+    
 },
 //login
 {path:'/login',

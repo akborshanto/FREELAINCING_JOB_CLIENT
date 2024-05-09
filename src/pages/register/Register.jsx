@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import registers from "../../assets/img/register.jpg";
 import useAuthHook from "../../hook/AuthHook";
 import { toast } from "react-toastify";
 
 const Register = () => {
   const { createUser, user,updatePro,setUser } = useAuthHook();
-
+const location=useLocation()
+const navigate=useNavigate()
   const handleSubmit = async(e) => {
     e.preventDefault();
     const form = e.target;
@@ -36,9 +37,10 @@ await updatePro(name,photo)
 setUser({...user,photoURL:photo,displayName:name})
 
 console.log(result)
+navigate('/')
 
-
-}catch{
+}catch(err){
+  console.log('error ')
 
 
 }
